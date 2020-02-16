@@ -1,0 +1,172 @@
+﻿<ul class="vertical-list">
+    <li class="header static-assets/sidebar-header-full.png">
+        <h3 class="sponsors">
+            Field Properties</h3>
+    </li>
+    <li>
+        <table id="field-property-table" class="field-property-table " cellpadding="0" cellspacing="0">
+
+         <!-- Header -->
+            <tr class="header">
+                <td class="label">
+                    <label class="label">
+                        Text</label>
+                </td>
+                <td class="input">,
+                    <input type="text" data-field-property="text" class="is-publisher" value="Click to edit" />
+                </td>
+            </tr>
+
+            <!-- field label -->
+            <tr class="textbox textarea dropdownlist radiobutton checkbox fullname email address phone birthdaypicker filepicker captcha">
+                <td class="label">
+                    <label class="label">
+                        Label</label>
+                </td>
+                <td class="input">
+                    <input type="text" data-field-property="label" class="is-publisher" value="Click to edit" />
+                </td>
+            </tr>
+            <!-- max characters -->
+            <tr class="textbox textarea email">
+                <td class="label">
+                    <label class="label">
+                        Max Characters</label>
+                </td>
+               <td class="input">
+                    <input type="text"  data-field-property="maxchars" class="numeric-entry is-publisher"/>
+                </td>
+            </tr>
+            <!-- is required -->
+            <tr class="textbox textarea dropdownlist radiobutton checkbox fullname email address phone birthdaypicker filepicker">
+                <td class="label">
+                    <label class="label">
+                        Required</label>
+                </td>
+                <td class="input">
+                    <select data-field-property="isrequired" class="is-publisher">
+                        <option value="False" selected="selected">False</option>
+                        <option value="True">True</option>                        
+                    </select>
+                </td>
+            </tr>          
+            <!--//end is required -->
+            
+            <!-- option -->
+            <tr class="dropdownlist radiobutton checkbox">
+                <td class="label">
+                    <label class="label">
+                       Options</label>
+            </td>
+               <td class="input">
+                    <input type="text" value="option 1,option 2,option 3" title="Enter options seperated by commas"  data-field-property="options" class="is-publisher"/>
+                </td>
+            </tr>
+            <!--//end options -->
+
+            <!-- selected option -->
+              <tr class="dropdownlist radiobutton">
+                <td class="label">
+                    <label class="label">
+                       Selected Option</label>
+            </td>
+               <td class="input">
+                    <input type="text" value=""  data-field-property="selectedoption" class="is-publisher"/>
+                </td>
+            </tr>
+            <!--// end selected option -->
+            
+            <!-- Watermark -->
+            <tr class="textbox">
+                <td class="label">
+                    <label class="label">
+                        Hint</label>
+                </td>
+                <td class="input">
+                    <input type="text"  data-field-property="hint" class="is-publisher"/>
+                </td>
+            </tr>
+            <!--//watermark-->
+
+            <!--min. age -->
+             <tr class="birthdaypicker">
+                <td class="label">
+                    <label class="label">
+                        Minimum Age</label>
+                </td>
+                <td class="input">
+                    @Html.DropDownList("minAge", new SelectList(UtilityHelper.NumberRange(1, 100), "Value", "Text", 18), 
+                                        new Dictionary<string,object>
+                                        { 
+                                            { "data-field-property", "minimumage"},
+                                            { "class","is-publisher"}                                            
+                                            
+                                         })
+                </td>
+            </tr>      
+            <!-- end min. age -->
+             <tr class="birthdaypicker">
+                <td class="label">
+                    <label class="label">
+                        Maximum Age</label>
+                </td>
+                <td class="input">
+                    @Html.DropDownList("maxAge", new SelectList(UtilityHelper.NumberRange(1, 100), "Value", "Text", 100),
+                                        new Dictionary<string, object>
+                                        { 
+                                            { "data-field-property", "maximumage"},
+                                            { "class","is-publisher"}                                            
+                                            
+                                         })
+                </td>
+            </tr>      
+
+            <!--valid extensions -->
+            <tr class="filepicker">
+                <td class="label">
+                    <label class="label">
+                        Valid Extensions</label>
+                </td>
+               <td class="input">
+                    <input type="text" value="@Constants.DEAULTFILEEXTENSIONS"  data-field-property="validextensions" class="is-publisher"/>
+              </td>
+            </tr> 
+            <!-- end valid extensions-->
+
+            <!--Max filesize-->
+            <tr class="filepicker">
+                <td class="label">
+                    <label class="label">
+                        Max. File size (kb)</label>
+                </td>
+               <td class="input">
+                    <input type="text" value="@Constants.DEAULTMAXFILESIZEINKB"  data-field-property="maxfilesize" class="numeric-entry is-publisher"/>
+              </td>
+            </tr> 
+            <!--// end max filesize-->
+
+            <!--Min. filesize-->
+            <tr class="filepicker">
+                <td class="label">
+                    <label class="label">
+                        Min. File size (kb)</label>
+                </td>
+               <td class="input">
+                    <input type="text" value="@Constants.DEAULTMINFILESIZEINKB"  data-field-property="minfilesize" class="numeric-entry is-publisher"/>
+              </td>
+            </tr> 
+            <!--// end min. filesize-->
+
+            <!-- Help text -->
+            <tr class="textbox textarea dropdownlist radiobutton checkbox fullname email address phone birthdaypicker filepicker">
+                <td class="label">
+                    <label class="label">
+                        Help Text</label>
+                </td>
+               <td class="input">
+                    <input type="text"  data-field-property="helptext" class="is-publisher"/>
+        </td>
+    </tr> 
+    </table> 
+    </li>
+</ul>

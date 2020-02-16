@@ -1,0 +1,73 @@
+﻿@model FormBuilder.ViewModels.FormViewModel
+@{    
+    
+    ViewBag.Title = Model.Title;
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Submit Form</title>
+    <script type="text/javascript" src="/Scripts/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="/Scripts/jquery.simplemodal.1.4.min.js"></script>
+    <script type="text/javascript" src="/Scripts/jquery.tmpl.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">    
+    <link type="text/css" href="/Content/css/form-builder/forms-modal.css" rel="stylesheet"  />          
+    <style type="text/css">
+      .menu-links-container{position:absolute;top:0;left:90px;height:45px;width:280px;}
+      .menu-links-container ul{width:100%;list-style-type:none;margin:0;padding:0;}
+      .menu-links-container li{float:left;width:127px;margin:0;padding:0;}
+      .embed-link:link,.embed-link:visited{width:127px;height:45px;display:inline-block;background-image:url(/content/images/forms-sprite.png);background-position:-1px -1808px;}
+      .embed-link:hover{background-position:-1px -1866px;}
+      .home-link:link,.home-link:visited{width:127px;height:45px;display:inline-block;top:0;left:90px;background-image:url(/content/images/forms-sprite.png);background-position:-1px -1923px;}      
+      .script-container{margin:0 auto;width:580px;}
+      .script-text-area{width:565px;height:85px;}
+    </style>
+</head>
+<body style="margin:0 auto;">
+    <div style="background-color:black; height: 70px; display:flex;align-items:center; margin:0">
+        <div style="background-color:black; display:flex; align-items:center;">
+            <img class="logo" src="~/Content/images/logo.png" height="40" style="margin-left:40px">
+        </div>
+        <div style="background-color:black; margin-left:80%;display:flex;align-items:center;">
+            <div title="Help" style="display:flex;align-items:center;">
+                <a href="https://www.docstack.com" target="_blank">
+                    <i class="material-icons" style="font-size:32px;color:white">contact_support</i>
+
+                </a>
+            </div>&nbsp;&nbsp;&nbsp;&nbsp;
+            <div title="Contact Support" style="display:flex;align-items:center;">
+                <a href="https://www.docstack.com/contact" target="_blank">
+                    <i class="material-icons" style="font-size:32px;color:white">email</i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div style="margin:0 auto;width:550px;">
+        <iframe id="form-builder-frame"
+                src="@Url.HttpRouteUrl("form-register", new { embed=true, Id=Model.Id })" 
+                frameborder="0"                 
+                width="550px"                 
+                marginheight="0" 
+                marginwidth="0"
+                scrolling="no"></iframe>
+    </div>
+
+    <!--
+    <div class="menu-links-container">
+    <ul>
+       <li><a href="@Url.RouteUrl("form-home")" id="home-link" class="home-link"></a></li>
+       <li><a href="javascript:void(0);" id="embed-link" class="embed-link"></a></li>
+    </ul>
+    
+    
+    </div>-->
+   @Html.Partial("_formEmbedPartial");
+    
+</body>
+
+</html>
+
+

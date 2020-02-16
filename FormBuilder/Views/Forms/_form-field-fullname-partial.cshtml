@@ -1,0 +1,36 @@
+﻿@model FormBuilder.ViewModels.FormFieldViewModel
+<label data-sub-channel="sub-label-@Model.DomId" class="label editable">@Model.Label</label>
+<span class="required @Model.IsRequired.OutputIfTrue("visible","hidden")">*</span>
+<div class="input">
+  <ul class="horizontal-list three-field-row full-name-row">
+  <li>
+  <input  id="SubmitFields[@Model.DomId].FirstName" name="SubmitFields[@Model.DomId].FirstName" type="text" value="@Html.GetTempFormValue(Model, "FirstName")" class="shorter-field title" /><br />
+  <span class="sub-label">First Name</span>
+  </li>
+  <li>
+  <input  id="SubmitFields[@Model.DomId].Initials" name="SubmitFields[@Model.DomId].Initials" type="text" value="@Html.GetTempFormValue(Model, "Initials")" class="mini-field title" maxlength="3" /><br />
+    <span class="sub-label">Initials</span>
+  </li>
+  <li>
+  <input  id="SubmitFields[@Model.DomId].LastName" name="SubmitFields[@Model.DomId].LastName" type="text" value="@Html.GetTempFormValue(Model, "LastName")" class="shorter-field title" /><br />
+   <span class="sub-label">Last Name</span>
+  </li>
+  </ul>
+@if (Model.IsEditMode())
+{
+@Html.Partial("_form-field-properties-partial", Model)
+}
+
+@if (!Model.Errors.IsNullOrEmpty())
+{
+  <span class="field-validation-error">@Model.Errors</span>
+}
+</div>
+<a href="javascript:void(0);" title="@Model.HelpText" class="help-icon-1 help-icon @Model.HelpText.OutputIfIs("", "hide") w-tip">
+  <img src="@Html.SpacerImage()" alt="help" />
+</a>
+
+@if (Model.IsEditMode())
+{
+@Html.Partial("_form-field-settings-template")
+}

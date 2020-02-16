@@ -1,0 +1,25 @@
+﻿@model FormBuilder.ViewModels.FormFieldViewModel
+
+@* Hidden field values for all properties that get posted to the server *@
+<input id="fieldid-prop-@Model.DomId" type="hidden" value="@Model.Id" data-sub-channel="sub-order-@Model.DomId" name="Fields[@Model.DomId].Id" />
+<input id="type-prop-@Model.DomId" type="hidden" value="@Model.FieldType" data-sub-channel="sub-type-@Model.DomId" name="Fields[@Model.DomId].FieldType" />
+<input id="text-prop-@Model.DomId" type="hidden" value="@Model.Text" data-sub-channel="sub-text-@Model.DomId" name="Fields[@Model.DomId].Text" />
+<input id="label-prop-@Model.DomId" type="hidden" value="@Model.Label" data-sub-channel="sub-label-@Model.DomId" name="Fields[@Model.DomId].Label" />
+<input id="maxchars-prop-@Model.DomId" type="hidden" value="@Model.MaxCharacters" data-sub-channel="sub-maxchars-@Model.DomId" name="Fields[@Model.DomId].MaxCharacters" />
+<input id="isrequired-prop-@Model.DomId" type="hidden" value="@Model.IsRequired.ToString()"  data-sub-channel="sub-isrequired-@Model.DomId" name="Fields[@Model.DomId].IsRequired" />
+<input id="options-prop-@Model.DomId" type="hidden" value="@Model.Options" data-sub-channel="sub-options-@Model.DomId" name="Fields[@Model.DomId].Options" />
+<input id="selectedoption-prop-@Model.DomId" type="hidden" value="@Model.SelectedOption" data-sub-channel="sub-selectedoption-@Model.DomId" name="Fields[@Model.DomId].SelectedOption" />
+<input id="hovertext-prop-@Model.DomId" type="hidden" value="@Model.HoverText" data-sub-channel="sub-hovertext-@Model.DomId" name="Fields[@Model.DomId].HoverText" />
+<input id="hint-prop-@Model.DomId" type="hidden" value="@Model.Hint" data-sub-channel="sub-hint-@Model.DomId" name="Fields[@Model.DomId].Hint" />
+<input id="minimumage-prop-@Model.DomId" type="hidden" value="@Model.MinimumAge" data-sub-channel="sub-minimumage-@Model.DomId" name="Fields[@Model.DomId].MinimumAge" />
+<input id="maximumage-prop-@Model.DomId" type="hidden" value="@Model.MaximumAge" data-sub-channel="sub-maximumage-@Model.DomId" name="Fields[@Model.DomId].MaximumAge" />
+<input id="maxfilesize-prop-@Model.DomId"     type="hidden" value="@Model.MaxFileSize" data-sub-channel="sub-maxfilesize-@Model.DomId" name="Fields[@Model.DomId].MaxFileSize" />
+<input id="minfilesize-prop-@Model.DomId"     type="hidden" value="@Model.MinFileSize" data-sub-channel="sub-minfilesize-@Model.DomId" name="Fields[@Model.DomId].MinFileSize" />
+<input id="validextensions-prop-@Model.DomId" type="hidden" value="@Model.ValidFileExtensions" data-sub-channel="sub-validextensions-@Model.DomId" name="Fields[@Model.DomId].ValidExtensions" />
+<input id="helptext-prop-@Model.DomId" type="hidden" value="@Model.HelpText" data-sub-channel="sub-helptext-@Model.DomId" name="Fields[@Model.DomId].HelpText" />
+<input id="sublabel-prop-@Model.DomId" type="hidden" value="@Model.SubLabel" data-sub-channel="sub-sublabel-@Model.DomId" name="Fields[@Model.DomId].SubLabel" />
+<input id="size-prop-@Model.DomId" type="hidden" value="@Model.Size" data-sub-channel="sub-size-@Model.DomId" name="Fields[@Model.DomId].Size" />
+<input id="columns-prop-@Model.DomId" type="hidden" value="@Model.Columns" data-sub-channel="sub-columns-@Model.DomId" name="Fields[@Model.DomId].Columns" />
+<input id="rows-prop-@Model.DomId" type="hidden" value="@Model.Rows" data-sub-channel="sub-rows-@Model.DomId" name="Fields[@Model.DomId].Rows" />
+<input id="validation-prop-@Model.DomId" type="hidden" value="@Model.Validation" data-sub-channel="sub-validation-@Model.DomId" name="Fields[@Model.DomId].Validation" />
+<input id="order-prop-@Model.DomId" type="hidden" value="@Model.Order" data-sub-channel="sub-order-@Model.DomId" name="Fields[@Model.DomId].Order" />

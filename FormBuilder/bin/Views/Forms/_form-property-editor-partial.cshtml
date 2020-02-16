@@ -1,0 +1,65 @@
+﻿@model FormBuilder.ViewModels.FormViewModel
+<ul class="vertical-list">
+    <li class="header static-assets/sidebar-header-full.png">
+        <h3 class="sponsors">
+            Form Properties</h3>
+    </li>
+    <li>
+        <table class="form-field-properties field-property-table " cellpadding="0" cellspacing="0">
+            <!-- field label -->
+            <tr>
+                <td class="label">
+                    <label class="label">
+                        Title</label>
+                </td>
+                <td class="input">
+                    @Html.TextBoxFor(m => m.Title,
+                                        new Dictionary<string, object>
+                                        { 
+                                            { "data-field-property", "title"},
+                                            { "class","is-publisher"}  ,
+                                            {"data-sub-channel", "sub-title-0"},
+                                            {"maxlength", "20"}
+                                                                                      
+                                            
+                                         })
+                   @Html.HiddenFor(m => m.Status)
+                </td>
+            </tr>                    
+            <tr>
+                <td class="label">
+                    <label class="label">
+                        Theme</label>
+                </td>
+                <td class="input">
+                    @Html.DropDownListFor(m => m.Theme, new SelectList(UtilityHelper.ThemeFolderList(), "Value", "Text",""),
+                                        new Dictionary<string, object>
+                                        { 
+                                            { "data-field-property", "Theme"},
+                                            { "class","is-publisher"}                                            
+                                            
+                                         })
+                </td>
+            </tr>  
+            <tr>
+                <td class="label">
+                    <label class="label">
+                        Notification Email</label>
+                </td>
+                <td class="input">
+                    @Html.TextBoxFor(m => m.NotificationEmail)
+                </td>
+            </tr>            
+            <!-- Confirmation message -->
+            <tr class="last-row">
+                <td class="label">
+                    <label class="label">
+                        Confirmation Msg</label>
+                </td>
+                <td class="input">
+                    @Html.TextAreaFor(m => m.ConfirmationMessage, new { @class = "elastic", maxlength = "200" })
+                </td>
+            </tr>                 
+        </table>
+    </li>
+</ul>

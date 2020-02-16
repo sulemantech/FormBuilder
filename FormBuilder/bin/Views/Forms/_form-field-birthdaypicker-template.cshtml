@@ -1,0 +1,27 @@
+﻿<script id="form-field-birthdaypicker-template" type="text/x-jquery-tmpl">
+<label data-sub-channel="sub-label-${id}" class="label editable">
+    Click to edit</label>
+      <span class="required hidden">*</span>
+<div class="input">
+    <ul class="horizontal-list three-field-row">
+        
+        <li>
+        @Html.DropDownList("birthday-${id}", ItemListHelper.Days().InsertAtStart(""), new { @class = "shorter-field" })<br/>
+      <span class="sub-label">Day</span>
+        </li>
+        <li>
+            @Html.DropDownList("birthmonth-${id}", ItemListHelper.Months().InsertAtStart(""), new { @class = "shorter-field" })<br />
+            <span class="sub-label">Month</span>
+        </li>
+        <li>
+            @Html.DropDownList("birthyear-${id}", ItemListHelper.BirthYears().InsertAtStart(""), new { @class = "shorter-field birth-year" })<br/>
+           <span class="sub-label">Year</span>
+        </li>
+    </ul>
+    @Html.Partial("_form-field-properties")
+</div>
+<a href="javascript:void(0);" class="help-icon-1 help-icon hide w-tip">
+  <img src="@Html.SpacerImage()" alt="help" />
+</a>
+@Html.Partial("_form-field-settings-template")
+</script>

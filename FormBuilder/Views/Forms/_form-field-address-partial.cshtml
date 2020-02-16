@@ -1,0 +1,56 @@
+﻿@model FormBuilder.ViewModels.FormFieldViewModel
+<label data-sub-channel="sub-label-@Model.DomId" class="label editable">@Model.Label</label>
+<span class="required @Model.IsRequired.OutputIfTrue("visible","hidden")">*</span>
+<div class="input">
+  <ul class="vertical-list">
+  <li>
+  <input id="SubmitFields[@Model.DomId].StreetAddress" name="SubmitFields[@Model.DomId].StreetAddress" value="@Html.GetTempFormValue(Model,"StreetAddress")"  type="text" class="title" /><br />
+   <span class="sub-label">Street address</span>
+  </li>
+  <li>
+  <input id="SubmitFields[@Model.DomId].StreetAddress2" name="SubmitFields[@Model.DomId].StreetAddress2" type="text" value="@Html.GetTempFormValue(Model, "StreetAddress2")"  class="title" /><br />
+   <span class="sub-label">Street address 2</span>
+  </li>
+  <li>
+     <ul class="two-field-row entry-form-list horizontal-list">
+       <li>
+         <input id="SubmitFields[@Model.DomId].City" name="SubmitFields[@Model.DomId].City"  type="text"  value="@Html.GetTempFormValue(Model, "City")" class="title shorter-field" /><br />
+        <span class="sub-label">City</span>
+       </li>
+       <li>
+       <input id="SubmitFields[@Model.DomId].State" name="SubmitFields[@Model.DomId].State"   type="text"  value="@Html.GetTempFormValue(Model,"State")"  class="shorter-field title" /><br />
+        <span class="sub-label">State / Province</span>
+       </li>
+     </ul>
+  </li>
+  <li>
+    <ul class="two-field-row horizontal-list entry-form-list">
+       <li>
+       <input id="SubmitFields[@Model.DomId].ZipCode" name="SubmitFields[@Model.DomId].ZipCode"   type="text" class="shorter-field title"  value="@Html.GetTempFormValue(Model,"ZipCode")"  maxlength="5" /><br />
+        <span class="sub-label">zip code</span>
+       </li>
+       <li>
+         @Html.DropDownList("SubmitFields[{0}].Country".FormatWith(Model.DomId), new SelectList(ItemListHelper.Countries.AsEnumerable().InsertAtStart("Select Country"), "Value", "Text", Html.GetTempFormValue(Model, "Country", Model.SelectedOption)), new { @class = "shorter-field" })<br/>
+         <span class="sub-label">Country</span>
+       </li>
+    </ul>
+  </li>
+  </ul>
+@if (Model.IsEditMode())
+{
+@Html.Partial("_form-field-properties-partial", Model)
+}
+
+@if (!Model.Errors.IsNullOrEmpty())
+{
+  <span class="field-validation-error">@Model.Errors</span>
+}
+</div>
+<a href="javascript:void(0);" title="@Model.HelpText" class="help-icon-1 help-icon @Model.HelpText.OutputIfIs("", "hide") w-tip">
+  <img src="@Html.SpacerImage()" alt="help" />
+</a>
+
+@if (Model.IsEditMode())
+{
+@Html.Partial("_form-field-settings-template")
+}

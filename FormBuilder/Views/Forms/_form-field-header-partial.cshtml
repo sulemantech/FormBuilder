@@ -1,0 +1,7 @@
+﻿@model FormBuilder.ViewModels.FormFieldViewModel
+<h2 data-sub-channel="sub-text-@Model.DomId" class="default editable">@Model.Text</h2>
+@if (Model.IsEditMode())
+{
+@Html.Partial("_form-field-properties-partial")
+@Html.Partial("_form-field-settings-template")
+}

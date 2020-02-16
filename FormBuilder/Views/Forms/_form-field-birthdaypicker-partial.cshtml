@@ -1,0 +1,38 @@
+﻿@model FormBuilder.ViewModels.FormFieldViewModel
+<label data-sub-channel="sub-label-@Model.DomId" class="label editable">@Model.Label</label>
+<span class="required @Model.IsRequired.OutputIfTrue("visible","hidden")">*</span>
+<div class="input">
+    <ul class="horizontal-list three-field-row">
+        
+        <li>
+        @Html.DropDownList("SubmitFields[{0}].Day".FormatWith(Model.DomId), new SelectList(ItemListHelper.Days().InsertAtStart(""), "Value", "Text", Html.GetTempFormValue(Model, "Day")), new { @class = "shorter-field" })<br/>
+      <span class="sub-label">Day</span>
+        </li>
+        <li>
+            @Html.DropDownList("SubmitFields[{0}].Month".FormatWith(Model.DomId), new SelectList(ItemListHelper.Months().InsertAtStart(""), "Value", "Text", Html.GetTempFormValue(Model, "Month")), new { @class = "shorter-field" })<br />
+            <span class="sub-label">Month</span>
+        </li>
+        <li>
+            @Html.DropDownList("SubmitFields[{0}].Year".FormatWith(Model.DomId), new SelectList(ItemListHelper.BirthYears(Model.MinimumAge.Value, Model.MaximumAge.Value).InsertAtStart(""), "Value", "Text", Html.GetTempFormValue(Model, "Year")), new { @class = "shorter-field birth-year" })<br/>
+           <span class="sub-label">Year</span>
+        </li>
+    </ul>
+@if (Model.IsEditMode())
+{
+@Html.Partial("_form-field-properties-partial", Model)
+}
+
+@if (!Model.Errors.IsNullOrEmpty())
+{
+  <span class="field-validation-error">@Model.Errors</span>
+}
+</div>
+<a href="javascript:void(0);" title="@Model.HelpText" class="help-icon-1 help-icon @Model.HelpText.OutputIfIs("", "hide") w-tip">
+  <img src="@Html.SpacerImage()" alt="help" />
+</a>
+
+@if (Model.IsEditMode())
+{
+@Html.Partial("_form-field-settings-template")
+}
+

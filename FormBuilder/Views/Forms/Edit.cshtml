@@ -1,0 +1,116 @@
+﻿@model FormBuilder.ViewModels.FormViewModel
+@{
+    ViewBag.Title = "Edit Form";    
+}
+
+@section headerScripts{    
+  <script type="text/javascript" src="/scripts/form-builder/fbuilder.utils.js"></script>
+  <script type="text/javascript" src="/scripts/form-builder/fbuilder.global.js"></script>
+  <script type="text/javascript" src="/scripts/form-builder/fbuilder.layout.js"></script>
+  <script type="text/javascript" src="/scripts/css_browser_selector.js"></script>
+
+  <link type="text/css" href="/Content/css/form-builder/forms-common.css" rel="stylesheet"  />
+  <link type="text/css" href="/Content/css/form-builder/forms-interface.css" rel="stylesheet"  />
+  <link type="text/css" href="/Content/css/form-builder/forms-modal.css" rel="stylesheet"  />      
+  
+}
+<div class="form-page-container prepend-top span-26">
+   @using (Ajax.BeginForm("Update", null, new AjaxOptions { HttpMethod = "POST", LoadingElementId = "spinner", OnBegin="forms.handleBeginSave", OnComplete = "forms.handleSaveCallback" }, new { id="main-form"}))
+   {
+    <div class="left-column span-4">              
+        @Html.Partial("_FormToolsMenuPartial", Model)
+    </div>
+    <div class="center-column span-14">
+        <div class="inner-container">
+        @Html.Partial("_FormsSubMenuPartial", Model)
+              <br /><br />
+            <ul class="horizontal-list title-list">
+                <li class="form-info title-info">
+                    <h2 class="form-editable form-title" data-sub-channel="sub-title-0">@Model.Title</h2>                        
+                </li>                
+            </ul>
+            <div id="message" class="clear"></div>
+            @Html.WriteMessages()
+        </div>
+        <div class="form-area">            
+            <ul id="drop-form" class="vertical-list edit-form drop-form-list entry-form-list">
+              @if (Model.Fields.Any())
+              {
+                   foreach (var field in Model.Fields)
+                   {
+                   <li id="drop-item-@field.DomId" class="drop-item ui-droppable" data-dom-id="@field.DomId" data-control-type="@field.FieldType.ToString().ToLower()">
+                      @Html.Partial("_form-field-{0}-partial".FormatWith(field.FieldType.ToString().ToLower()), field)  
+                   </li>
+                   }
+              }
+              else { 
+                <li class="prompt-item">
+                <div class="add-fields-prompt rounded-5 shadow-2">
+                  Drag Form Fields from the left side-bar into this space to begin building your form
+                </div>
+                <br /><br />
+                </li>
+              }
+            </ul>
+            <ul id="submit-button-list" class="vertical-list entry-form-list">
+              <li>
+                <label class="label">&nbsp;</label>
+                <div class="input">
+                  <input type="submit" value="Save Changes" class="save-button blue"  />
+                  <br /><br />
+                </div>
+              </li>
+            </ul>
+        </div>
+    </div>
+    <div class="right-column span-7 last">
+       @Html.Tip("Active fields on your form can be edited in the box below.","tip wide-tip")<br />
+      <div id="form-property-container">
+        @Html.Partial("_form-property-editor-partial")
+      </div>
+      <div id="field-property-container" class="hide">
+      @Html.Partial("_form-field-property-editor-partial")
+      </div>
+     
+    </div>       
+       @Html.HiddenFor(m => m.Id)
+       @Html.Hidden("IsAutoSave", "false");
+       <input type="hidden" id="isAltered" value="0" /> 
+       @*dummy field below to prevent null value for update action dicationary param*@
+       <input id="fieldid-prop" type="hidden" name="Fields[-1].Id"  value=""/>                                     
+   }
+</div>
+
+<div id="autosave-container" class="autosave-container rounded-5 shadow-2 hide">
+ @Html.Spinner("auto-save",false)&nbsp;&nbsp;Auto-saving
+</div>
+@Html.Partial("_formEmbedPartial")
+
+
+<!--Register tools here-->
+@Html.Partial("_form-field-header-template")
+@Html.Partial("_form-field-textbox-template")
+@Html.Partial("_form-field-textarea-template")
+@Html.Partial("_form-field-dropdownlist-template")
+@Html.Partial("_form-field-checkbox-template")
+@Html.Partial("_form-field-radiobutton-template")
+@Html.Partial("_form-field-fullname-template")
+@Html.Partial("_form-field-email-template")
+@Html.Partial("_form-field-address-template")
+@Html.Partial("_form-field-phone-template")
+@Html.Partial("_form-field-birthdaypicker-template")
+@Html.Partial("_form-field-prompt-template")
+@Html.Partial("_form-field-filepicker-template")
+
+
+
+@section footerScripts{ 
+    <script type="text/javascript" src="/Scripts/form-builder/fbuilder.forms.js"></script>
+    <script type="text/javascript" src="/Scripts/jquery.tmpl.min.js"></script>
+    <script type="text/javascript" src="/Scripts/jquery.jeditable.min.js"></script>
+}
+
+@section initializers{
+           forms.init();            
+}
+

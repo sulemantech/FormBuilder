@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FormBuilderModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Form">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Slug" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ConfirmationMessage" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DateAdded" Type="DateTime" Precision="3" />
+    <Property Name="Theme" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NotificationEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="FormFields" Relationship="Self.form_form_fields" FromRole="form" ToRole="form_fields" />
+  </EntityType>
+  <EntityType Name="FormFieldValue">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FieldId" Type="Int32" Nullable="false" />
+    <Property Name="EntryId" Type="Guid" Nullable="false" />
+    <Property Name="Value" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="DateAdded" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="FormField" Relationship="Self.FK_form_field_values_form_fields" FromRole="form_field_values" ToRole="form_fields" />
+  </EntityType>
+  <EntityType Name="FormField">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Label" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Text" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="FieldType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="IsRequired" Type="Boolean" />
+    <Property Name="MaxChars" Type="Int32" />
+    <Property Name="HoverText" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Hint" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="SubLabel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Size" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="SelectedOption" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Columns" Type="Int32" />
+    <Property Name="Rows" Type="Int32" />
+    <Property Name="Options" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="Validation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DomId" Type="Int32" />
+    <Property Name="Order" Type="Int32" />
+    <Property Name="MinimumAge" Type="Int32" />
+    <Property Name="MaximumAge" Type="Int32" />
+    <Property Name="HelpText" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DateAdded" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="MaxFilesizeInKb" Type="Int32" />
+    <Property Name="ValidFileExtensions" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MinFilesizeInKb" Type="Int32" />
+    <NavigationProperty Name="FormFieldValues" Relationship="Self.FK_form_field_values_form_fields" FromRole="form_fields" ToRole="form_field_values" />
+    <NavigationProperty Name="Forms" Relationship="Self.form_form_fields" FromRole="form_fields" ToRole="form" />
+  </EntityType>
+  <Association Name="FK_form_field_values_form_fields">
+    <End Role="form_fields" Type="FormBuilderModel.FormField" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="form_field_values" Type="FormBuilderModel.FormFieldValue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="form_fields">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="form_field_values">
+        <PropertyRef Name="FieldId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="form_form_fields">
+    <End Role="form_fields" Type="FormBuilderModel.FormField" Multiplicity="*" />
+    <End Role="form" Type="FormBuilderModel.Form" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Forms1" EntityType="FormBuilderModel.Form" />
+    <EntitySet Name="FormFieldValues" EntityType="FormBuilderModel.FormFieldValue" />
+    <EntitySet Name="FormFields" EntityType="FormBuilderModel.FormField" />
+    <AssociationSet Name="FK_form_field_values_form_fields" Association="Self.FK_form_field_values_form_fields">
+      <End Role="form_fields" EntitySet="FormFields" />
+      <End Role="form_field_values" EntitySet="FormFieldValues" />
+    </AssociationSet>
+    <AssociationSet Name="form_form_fields" Association="Self.form_form_fields">
+      <End Role="form_fields" EntitySet="FormFields" />
+      <End Role="form" EntitySet="Forms1" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

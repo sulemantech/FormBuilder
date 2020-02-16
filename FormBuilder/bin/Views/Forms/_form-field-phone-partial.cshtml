@@ -1,0 +1,30 @@
+﻿@model FormBuilder.ViewModels.FormFieldViewModel
+<label data-sub-channel="sub-label-@Model.DomId" class="label editable">@Model.Label</label>
+<span class="required @Model.IsRequired.OutputIfTrue("visible","hidden")">*</span>
+<div class="input">
+    <ul class="horizontal-list two-field-row entry-form-list">
+        <li class="area-code-item">
+            <input  id="SubmitFields[@Model.DomId].AreaCode" name="SubmitFields[@Model.DomId].AreaCode" value="@Html.GetTempFormValue(Model, "AreaCode")"  type="text" class="title shorter-field area-code" maxlength="3" />
+            -<br />
+            <span class="sub-label">Area Code</span> </li>
+        <li class="phone-number-item">
+            <input  id="SubmitFields[@Model.DomId].Number" name="SubmitFields[@Model.DomId].Number" value="@Html.GetTempFormValue(Model, "Number")"  type="text" class="title shorter-field phone-number" /><br />
+            <span class="sub-label">Phone Number</span> </li>
+    </ul>
+@if (Model.IsEditMode())
+{
+@Html.Partial("_form-field-properties-partial", Model)
+}
+
+@if(!Model.Errors.IsNullOrEmpty()){
+  <span class="field-validation-error">@Model.Errors</span>
+}
+</div>
+<a href="javascript:void(0);" title="@Model.HelpText" class="help-icon-1 help-icon @Model.HelpText.OutputIfIs("", "hide") w-tip">
+  <img src="@Html.SpacerImage()" alt="help" />
+</a>
+
+@if (Model.IsEditMode())
+{
+@Html.Partial("_form-field-settings-template")
+}

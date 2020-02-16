@@ -1,0 +1,35 @@
+﻿@model FormBuilder.ViewModels.FormViewModel
+@{
+    ViewBag.Title = "Register";    
+    
+    if(Model.Embed)
+    {
+        Layout = "~/Views/Shared/_EmbedLayout.cshtml";
+    }
+    
+}
+@section headerScripts{
+   <link type="text/css" href="/Content/css/form-builder/forms-interface.css" rel="stylesheet"  />
+
+    @if(!Model.Theme.IsNullOrEmpty())
+    {
+        <link type="text/css" href="/Content/css/form-builder/themes/@Model.Theme/styles.css" rel="stylesheet"  />    
+    } 
+}
+
+<div class="form-page-container confirmation-page-container prepend-top span-26">        
+        <div class="inner-container">
+            <h2 class="title"></h2>
+            <h4 class="date"></h4>
+        </div>         
+            <br />        
+        <div class="inner-container">
+        @Html.WriteMessages()
+        <br />
+        <a href="javascript:history.go(-1);">Click Here</a> to go back
+        </div>    
+   
+</div>
+@section footerScripts{    
+  
+}

@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="FormBuilderModelStoreContainer" CdmEntityContainer="Entities">
+    <EntitySetMapping Name="Forms1">
+      <EntityTypeMapping TypeName="FormBuilderModel.Form">
+        <MappingFragment StoreEntitySet="form">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Slug" ColumnName="Slug" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="ConfirmationMessage" ColumnName="ConfirmationMessage" />
+          <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+          <ScalarProperty Name="Theme" ColumnName="Theme" />
+          <ScalarProperty Name="NotificationEmail" ColumnName="NotificationEmail" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FormFieldValues">
+      <EntityTypeMapping TypeName="FormBuilderModel.FormFieldValue">
+        <MappingFragment StoreEntitySet="form_field_values">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="FieldId" ColumnName="FieldId" />
+          <ScalarProperty Name="EntryId" ColumnName="EntryId" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FormFields">
+      <EntityTypeMapping TypeName="FormBuilderModel.FormField">
+        <MappingFragment StoreEntitySet="form_fields">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Label" ColumnName="Label" />
+          <ScalarProperty Name="Text" ColumnName="Text" />
+          <ScalarProperty Name="FieldType" ColumnName="FieldType" />
+          <ScalarProperty Name="IsRequired" ColumnName="IsRequired" />
+          <ScalarProperty Name="MaxChars" ColumnName="MaxChars" />
+          <ScalarProperty Name="HoverText" ColumnName="HoverText" />
+          <ScalarProperty Name="Hint" ColumnName="Hint" />
+          <ScalarProperty Name="SubLabel" ColumnName="SubLabel" />
+          <ScalarProperty Name="Size" ColumnName="Size" />
+          <ScalarProperty Name="SelectedOption" ColumnName="SelectedOption" />
+          <ScalarProperty Name="Columns" ColumnName="Columns" />
+          <ScalarProperty Name="Rows" ColumnName="Rows" />
+          <ScalarProperty Name="Options" ColumnName="Options" />
+          <ScalarProperty Name="Validation" ColumnName="Validation" />
+          <ScalarProperty Name="DomId" ColumnName="DomId" />
+          <ScalarProperty Name="Order" ColumnName="Order" />
+          <ScalarProperty Name="MinimumAge" ColumnName="MinimumAge" />
+          <ScalarProperty Name="MaximumAge" ColumnName="MaximumAge" />
+          <ScalarProperty Name="HelpText" ColumnName="HelpText" />
+          <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+          <ScalarProperty Name="MaxFilesizeInKb" ColumnName="MaxFilesizeInKb" />
+          <ScalarProperty Name="ValidFileExtensions" ColumnName="ValidFileExtensions" />
+          <ScalarProperty Name="MinFilesizeInKb" ColumnName="MinFilesizeInKb" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="form_form_fields" TypeName="FormBuilderModel.form_form_fields" StoreEntitySet="form_form_fields">
+      <EndProperty Name="form_fields">
+        <ScalarProperty Name="ID" ColumnName="fieldId" />
+      </EndProperty>
+      <EndProperty Name="form">
+        <ScalarProperty Name="ID" ColumnName="formId" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

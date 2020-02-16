@@ -1,0 +1,45 @@
+﻿@model FormBuilder.ViewModels.FormFieldViewModel
+<label data-sub-channel="sub-label-@Model.DomId" class="label editable">@Model.Label</label>
+<span class="required @Model.IsRequired.OutputIfTrue("visible","hidden")">*</span>
+<div class="input">
+<select id="SubmitFields[@Model.DomId].DropDownList" name="SubmitFields[@Model.DomId].DropDownList" class="default">
+  @{var selectedAttribute = "";}
+   @foreach (var option in Model.Options.Split(","))
+   {
+       if (Html.IsAnyTempFormValueSelected(Model))
+       {
+           if (Html.IsTempFormValueSelected(Model, option))
+           {
+            selectedAttribute = "selected=\"true\""   ;
+           }else{
+              selectedAttribute="";
+           }
+       }
+       else { 
+          if(Model.SelectedOption.IsTheSameAs(option))
+          {
+           selectedAttribute = "selected=\"true\""   ;
+          }
+       }
+       
+   <option @selectedAttribute value="@option">@option</option>
+   }
+</select>
+@if (Model.IsEditMode())
+{
+@Html.Partial("_form-field-properties-partial", Model)
+}
+
+@if(!Model.Errors.IsNullOrEmpty()){
+  <span class="field-validation-error">@Model.Errors</span>
+}
+</div>
+<a href="javascript:void(0);" title="@Model.HelpText" class="help-icon-1 help-icon @Model.HelpText.OutputIfIs("", "hide") w-tip">
+  <img src="@Html.SpacerImage()" alt="help" />
+</a>
+
+@if (Model.IsEditMode())
+{
+@Html.Partial("_form-field-settings-template")
+}
+

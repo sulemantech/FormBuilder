@@ -1,0 +1,12 @@
+﻿@model FormBuilder.ViewModels.FormViewModel
+@{}
+<ul class="form-actions-menu horizontal-list left clear">
+    <li><a href="javascript:void(0);" class="image-icon-link save-icon-link submit-link save-button">
+        <span>Save</span></a></li>
+    <li class="publish-item @Model.Fields.Any().OutputIfFalse("hide")">
+        <a href="javascript:void(0);" onclick="alert('Create your own event and add a form to use this feature');" class="image-icon-link speaker-icon-link">
+        <span>Publish</span></a></li>
+    <li><a href="javascript:void(0);" onclick="alert('Create your own event and add a form to use this feature');" class="image-icon-link invitations-icon-link">
+            <span>View Entries (0)</span></a></li>      
+    <li>@Html.Spinner()</li>
+</ul>

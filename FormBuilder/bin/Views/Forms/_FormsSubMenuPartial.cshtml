@@ -1,0 +1,61 @@
+﻿@model FormBuilder.ViewModels.FormViewModel
+
+<ul class="form-actions-menu horizontal-list left clear">
+     <li>
+       @Html.RouteLink("Home","form-home",null, new{@class="image-icon-link home-icon-link"})
+     </li>
+    <li> &nbsp;&nbsp;&nbsp;</li>
+        <!-- <li class="seperator-item @Model.Status.ToString().ToLower()">&nbsp;</li>-->
+
+<li>
+        <a href="javascript:void(0);" class="image-icon-link save-icon-link submit-link save-button">
+            <span>Save</span>
+        </a>
+    </li>
+    <li> &nbsp;&nbsp;&nbsp;</li>
+    @if (Model.Status == Constants.FormStatus.PUBLISHED)
+    {
+        <li class="preview-item">
+            <a href="@Url.FormPreviewUrl(Model)" target="_blank" class="image-icon-link preview-icon-link">
+                <span>
+                    Preview
+                </span>
+            </a>
+        </li>
+        <li> &nbsp;&nbsp;&nbsp;</li>
+        <li class="embed-item">
+            <a href="javascript:void(0);" id="embed-link" class="image-icon-link embed-icon-link">
+                <span>
+                    Embed
+                </span>
+            </a>
+        </li>
+        <li> &nbsp;&nbsp;&nbsp;</li>
+        <li class="publish-item @Model.Fields.Any().OutputIfFalse("hide")">
+            <a href="@Url.Action("TogglePublish", new { toOn = false, id = Model.Id })" class="image-icon-link crossbox-icon-link">
+                <span>Unpublish</span>
+            </a>
+        </li>
+    }
+    else
+    {
+        <li class="publish-item @Model.Fields.Any().OutputIfFalse("hide")">
+            <a href="@Url.Action("TogglePublish", new { toOn = true, id = Model.Id })" class="image-icon-link speaker-icon-link">
+                <span>Publish</span>
+            </a>
+        </li>
+    }
+    
+    
+
+    
+    
+
+    @if (Model.GroupedEntries != null && Model.GroupedEntries.Count() > 0)
+    {
+        <li><a href="@Url.RouteUrl("form-entries", new { formid = Model.Id.Value })" class="image-icon-link invitations-icon-link">
+            <span>View Entries @Model.GroupedEntries.Any().OutputIfTrue("({0})".FormatWith(Model.GroupedEntries.Count().ToString()))</span></a></li>
+    }
+    
+    <li>@Html.Spinner()</li>
+</ul>

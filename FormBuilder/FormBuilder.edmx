@@ -1,0 +1,310 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="FormBuilderModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="form">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Slug" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+          <Property Name="ConfirmationMessage" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="DateAdded" Type="datetime" />
+          <Property Name="Theme" Type="nvarchar" MaxLength="50" />
+          <Property Name="NotificationEmail" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="form_field_values">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FieldId" Type="int" Nullable="false" />
+          <Property Name="EntryId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Value" Type="nvarchar" MaxLength="500" />
+          <Property Name="DateAdded" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="form_fields">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Label" Type="nvarchar" MaxLength="50" />
+          <Property Name="Text" Type="nvarchar" MaxLength="100" />
+          <Property Name="FieldType" Type="varchar" MaxLength="20" />
+          <Property Name="IsRequired" Type="bit" />
+          <Property Name="MaxChars" Type="int" />
+          <Property Name="HoverText" Type="nvarchar" MaxLength="150" />
+          <Property Name="Hint" Type="nvarchar" MaxLength="150" />
+          <Property Name="SubLabel" Type="nvarchar" MaxLength="50" />
+          <Property Name="Size" Type="varchar" MaxLength="10" />
+          <Property Name="SelectedOption" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Columns" Type="int" />
+          <Property Name="Rows" Type="int" />
+          <Property Name="Options" Type="nvarchar" MaxLength="300" />
+          <Property Name="Validation" Type="varchar" MaxLength="50" />
+          <Property Name="DomId" Type="int" />
+          <Property Name="Order" Type="int" />
+          <Property Name="MinimumAge" Type="int" />
+          <Property Name="MaximumAge" Type="int" />
+          <Property Name="HelpText" Type="nvarchar" MaxLength="50" />
+          <Property Name="DateAdded" Type="datetime" Nullable="false" />
+          <Property Name="MaxFilesizeInKb" Type="int" />
+          <Property Name="ValidFileExtensions" Type="nvarchar" MaxLength="50" />
+          <Property Name="MinFilesizeInKb" Type="int" />
+        </EntityType>
+        <EntityType Name="form_form_fields">
+          <Key>
+            <PropertyRef Name="formId" />
+            <PropertyRef Name="fieldId" />
+          </Key>
+          <Property Name="formId" Type="int" Nullable="false" />
+          <Property Name="fieldId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK form_fields_form_form_fields">
+          <End Role="form_fields" Type="Self.form_fields" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="form_form_fields" Type="Self.form_form_fields" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="form_fields">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="form_form_fields">
+              <PropertyRef Name="fieldId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_form_field_values_form_fields">
+          <End Role="form_fields" Type="Self.form_fields" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="form_field_values" Type="Self.form_field_values" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="form_fields">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="form_field_values">
+              <PropertyRef Name="FieldId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_form_fields">
+          <End Role="form" Type="Self.form" Multiplicity="1" />
+          <End Role="form_form_fields" Type="Self.form_form_fields" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="form">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="form_form_fields">
+              <PropertyRef Name="formId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FormBuilderModelStoreContainer">
+          <EntitySet Name="form" EntityType="Self.form" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="form_field_values" EntityType="Self.form_field_values" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="form_fields" EntityType="Self.form_fields" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="form_form_fields" EntityType="Self.form_form_fields" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK form_fields_form_form_fields" Association="Self.FK form_fields_form_form_fields">
+            <End Role="form_fields" EntitySet="form_fields" />
+            <End Role="form_form_fields" EntitySet="form_form_fields" />
+          </AssociationSet>
+          <AssociationSet Name="FK_form_field_values_form_fields" Association="Self.FK_form_field_values_form_fields">
+            <End Role="form_fields" EntitySet="form_fields" />
+            <End Role="form_field_values" EntitySet="form_field_values" />
+          </AssociationSet>
+          <AssociationSet Name="FK_form_fields" Association="Self.FK_form_fields">
+            <End Role="form" EntitySet="form" />
+            <End Role="form_form_fields" EntitySet="form_form_fields" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FormBuilderModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Form">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Slug" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ConfirmationMessage" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateAdded" Type="DateTime" Precision="3" />
+          <Property Name="Theme" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NotificationEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="FormFields" Relationship="Self.form_form_fields" FromRole="form" ToRole="form_fields" />
+        </EntityType>
+        <EntityType Name="FormFieldValue">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FieldId" Type="Int32" Nullable="false" />
+          <Property Name="EntryId" Type="Guid" Nullable="false" />
+          <Property Name="Value" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="DateAdded" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="FormField" Relationship="Self.FK_form_field_values_form_fields" FromRole="form_field_values" ToRole="form_fields" />
+        </EntityType>
+        <EntityType Name="FormField">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Label" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Text" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FieldType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="IsRequired" Type="Boolean" />
+          <Property Name="MaxChars" Type="Int32" />
+          <Property Name="HoverText" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Hint" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="SubLabel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Size" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="SelectedOption" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Columns" Type="Int32" />
+          <Property Name="Rows" Type="Int32" />
+          <Property Name="Options" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Validation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DomId" Type="Int32" />
+          <Property Name="Order" Type="Int32" />
+          <Property Name="MinimumAge" Type="Int32" />
+          <Property Name="MaximumAge" Type="Int32" />
+          <Property Name="HelpText" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DateAdded" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="MaxFilesizeInKb" Type="Int32" />
+          <Property Name="ValidFileExtensions" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MinFilesizeInKb" Type="Int32" />
+          <NavigationProperty Name="FormFieldValues" Relationship="Self.FK_form_field_values_form_fields" FromRole="form_fields" ToRole="form_field_values" />
+          <NavigationProperty Name="Forms" Relationship="Self.form_form_fields" FromRole="form_fields" ToRole="form" />
+        </EntityType>
+        <Association Name="FK_form_field_values_form_fields">
+          <End Role="form_fields" Type="FormBuilderModel.FormField" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="form_field_values" Type="FormBuilderModel.FormFieldValue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="form_fields">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="form_field_values">
+              <PropertyRef Name="FieldId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="form_form_fields">
+          <End Role="form_fields" Type="FormBuilderModel.FormField" Multiplicity="*" />
+          <End Role="form" Type="FormBuilderModel.Form" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="FormBuilderEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Forms" EntityType="FormBuilderModel.Form" />
+          <EntitySet Name="FormFieldValues" EntityType="FormBuilderModel.FormFieldValue" />
+          <EntitySet Name="FormFields" EntityType="FormBuilderModel.FormField" />
+          <AssociationSet Name="FK_form_field_values_form_fields" Association="Self.FK_form_field_values_form_fields">
+            <End Role="form_fields" EntitySet="FormFields" />
+            <End Role="form_field_values" EntitySet="FormFieldValues" />
+          </AssociationSet>
+          <AssociationSet Name="form_form_fields" Association="Self.form_form_fields">
+            <End Role="form_fields" EntitySet="FormFields" />
+            <End Role="form" EntitySet="Forms" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FormBuilderModelStoreContainer" CdmEntityContainer="FormBuilderEntities">
+          <EntitySetMapping Name="Forms">
+            <EntityTypeMapping TypeName="FormBuilderModel.Form">
+              <MappingFragment StoreEntitySet="form">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Slug" ColumnName="Slug" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ConfirmationMessage" ColumnName="ConfirmationMessage" />
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+                <ScalarProperty Name="Theme" ColumnName="Theme" />
+                <ScalarProperty Name="NotificationEmail" ColumnName="NotificationEmail" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FormFieldValues">
+            <EntityTypeMapping TypeName="FormBuilderModel.FormFieldValue">
+              <MappingFragment StoreEntitySet="form_field_values">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FieldId" ColumnName="FieldId" />
+                <ScalarProperty Name="EntryId" ColumnName="EntryId" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FormFields">
+            <EntityTypeMapping TypeName="FormBuilderModel.FormField">
+              <MappingFragment StoreEntitySet="form_fields">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Label" ColumnName="Label" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="FieldType" ColumnName="FieldType" />
+                <ScalarProperty Name="IsRequired" ColumnName="IsRequired" />
+                <ScalarProperty Name="MaxChars" ColumnName="MaxChars" />
+                <ScalarProperty Name="HoverText" ColumnName="HoverText" />
+                <ScalarProperty Name="Hint" ColumnName="Hint" />
+                <ScalarProperty Name="SubLabel" ColumnName="SubLabel" />
+                <ScalarProperty Name="Size" ColumnName="Size" />
+                <ScalarProperty Name="SelectedOption" ColumnName="SelectedOption" />
+                <ScalarProperty Name="Columns" ColumnName="Columns" />
+                <ScalarProperty Name="Rows" ColumnName="Rows" />
+                <ScalarProperty Name="Options" ColumnName="Options" />
+                <ScalarProperty Name="Validation" ColumnName="Validation" />
+                <ScalarProperty Name="DomId" ColumnName="DomId" />
+                <ScalarProperty Name="Order" ColumnName="Order" />
+                <ScalarProperty Name="MinimumAge" ColumnName="MinimumAge" />
+                <ScalarProperty Name="MaximumAge" ColumnName="MaximumAge" />
+                <ScalarProperty Name="HelpText" ColumnName="HelpText" />
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+                <ScalarProperty Name="MaxFilesizeInKb" ColumnName="MaxFilesizeInKb" />
+                <ScalarProperty Name="ValidFileExtensions" ColumnName="ValidFileExtensions" />
+                <ScalarProperty Name="MinFilesizeInKb" ColumnName="MinFilesizeInKb" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="form_form_fields" TypeName="FormBuilderModel.form_form_fields" StoreEntitySet="form_form_fields">
+            <EndProperty Name="form_fields">
+              <ScalarProperty Name="ID" ColumnName="fieldId" />
+            </EndProperty>
+            <EndProperty Name="form">
+              <ScalarProperty Name="ID" ColumnName="formId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Default" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

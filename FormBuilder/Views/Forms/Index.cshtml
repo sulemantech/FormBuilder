@@ -1,0 +1,58 @@
+﻿@model FormBuilder.ViewModels.FormCollectionViewModel
+@{
+    ViewBag.Title = "Welcome to Form Builder";
+}
+
+@if (!Model.Forms.Any())
+{
+    <div class="select-form-container align-center welcome-container">
+       <img src="/content/images/spacer.gif" class="image-bg form-icon" alt="form icon" /><br />
+       <h3 class="welcome-text">Welcome to Docstack eForm builder. You have not yet created any forms. Click the button below to begin</h3>
+       @Html.RouteLink("Create Form", "form-create", null, new { @class="hyperlink-button light-blue-button welcome-button"})
+    </div>
+}
+else
+{
+    @Html.WriteMessages()
+    <div class="select-form-container">
+    <div class="add-form-guide info align-left welcome-instructions">
+      Welcome to Docstack eForm builder. You can create and edit forms using drag-and-drop functionality with the controls below. Click on "Add Form" to create a new 
+      form, or manage existing forms from the table below.
+    </div>
+    <div class="add-form-button-container">
+        @Html.RouteLink("Add Form", "form-create", null, new { @class="hyperlink-button black-button"})
+    </div>
+    <table class="main-table">
+    <thead>
+      <tr>
+        <th><h3>Form List</h3></th>        
+        <th>&nbsp;</th>
+      </tr>      
+    </thead>
+    <tbody>
+    @foreach (var f in Model.Forms)
+    {
+        <tr>
+       <td class="title-column">
+         <span class="title">@f.Title</span><br />
+         <span class="date">@f.DateAdded.Humanize()</span>
+       </td>       
+        <td>          
+          @Html.RouteLink("Edit Form", "form-edit", new { Id = f.Id.Value }, new { @class = "hyperlink-button light-blue-button" })
+          @Html.RouteLink("View/Fill Form", "form-preview", new{Id=f.Id.Value}, new { @class="hyperlink-button green-button"})  
+          @Html.RouteLink("View Submissions", "form-entries", new { formId = f.Id.Value}, new{@class="hyperlink-button orange-button" })
+          &nbsp;
+
+          @if (!f.Fields.Any())
+          {                          
+              <a href="@Url.RouteUrl("form-delete",new {formId=f.Id.Value})" onclick="return confirm('Are you sure you want to delete this form?');" class="image-bg-link image-bg delete-icon-link" title="Delete form">&nbsp;</a>
+          }
+        </td>
+        </tr>
+    }
+    </tbody>
+    </table>
+
+    </div>
+}
+

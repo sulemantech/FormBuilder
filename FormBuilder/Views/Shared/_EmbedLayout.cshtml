@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />    
+    <title>@ViewBag.Title - Docstack eForm Builder</title>
+       <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <meta name="viewport" content="width=device-width" />          
+        <!--javascripts-->
+        <script type="text/javascript" src="/Scripts/jquery-1.7.1.min.js"></script>             
+        <script type="text/javascript" src="/Scripts/modernizr-2.5.3.js"></script>
+        <script type="text/javascript" src="/Scripts/jquery.tipsy.js"></script>        
+        <script type="text/javascript" src="/Scripts/jquery.maxlength-min.js"></script>
+        <script type="text/javascript" src="/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+        <script type="text/javascript" src="/Scripts/jquery.watermark.js"></script>
+        <script type="text/javascript" src="/Scripts/jquery.maxlength-min.js"></script>
+        <script type="text/javascript" src="/Scripts/jquery.numeric.js"></script>
+        <script type="text/javascript" src="/Scripts/form-builder/fbuilder.utils.js"></script>
+        <script type="text/javascript" src="/Scripts/form-builder/fbuilder.global.js"></script>        
+        <script type="text/javascript" src="/scripts/css_browser_selector.js"></script>
+
+        <!--Css-->    
+        <link type="text/css" href="/Content/css/reset.css" rel="stylesheet"  />
+        <link type="text/css" href="/Content/css/blueprint/screen.css" rel="stylesheet"  />        
+        <link type="text/css" href="/Content/css/plugins/tipsy.css" rel="stylesheet"  />
+        <link type="text/css" href="/Content/css/form-builder/forms-global.css" rel="stylesheet"  />                
+        <link type="text/css" href="/Content/css/form-builder/forms-sprites.css" rel="stylesheet"  />  
+       <link type="text/css" href="/Content/css/form-builder/forms-embed.css" rel="stylesheet"  />
+        @RenderSection("headerScripts", false)
+       
+       
+</head>
+
+<body class="@Html.GetContextCssClass()">
+    
+
+    <div>
+        @RenderBody()
+    </div>
+    @RenderSection("footerScripts", false)
+    <script type="text/javascript">
+            $(document).ready(function () {                                             
+                global.init();
+                @RenderSection("initializers", false)                 
+            });
+    </script>
+
+    <script>
+       
+
+</script>
+</body>
+</html>

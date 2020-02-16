@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>@ViewBag.Title - Docstack Form Builder</title>
+        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <meta name="viewport" content="width=device-width" />          
+        <!--javascripts-->
+        <script type="text/javascript" src="/Scripts/jquery-1.7.1.min.js"></script>
+        <script type="text/javascript" src="/Scripts/jquery-ui-1.8.20.js"></script>        
+        <script type="text/javascript" src="/Scripts/modernizr-2.5.3.js"></script>
+        <script type="text/javascript" src="/Scripts/jquery.tipsy.js"></script>
+        <script type="text/javascript" src="/Scripts/jquery.simplemodal.1.4.min.js"></script>
+        <script type="text/javascript" src="/Scripts/jquery.maxlength-min.js"></script>
+        <script type="text/javascript" src="/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+        <script type="text/javascript" src="/Scripts/jquery.watermark.js"></script>
+        <script type="text/javascript" src="/Scripts/jquery.maxlength-min.js"></script>
+        <script type="text/javascript" src="/Scripts/jquery.numeric.js"></script>
+        <script type="text/javascript" src="/Scripts/form-builder/fbuilder.utils.js"></script>
+        <script type="text/javascript" src="/Scripts/form-builder/fbuilder.global.js"></script>   
+        <script type="text/javascript" src="/scripts/css_browser_selector.js"></script>     
+
+        <!--Css-->    
+        <link type="text/css" href="/Content/css/reset.css" rel="stylesheet"  />
+        <link type="text/css" href="/Content/css/blueprint/screen.css" rel="stylesheet"  />
+        <link type="text/css" href="/Content/themes/base/jquery.ui.core.css" rel="stylesheet"  />
+        <link type="text/css" href="/Content/themes/base/jquery.ui.selectable.css" rel="stylesheet"  />
+        <link type="text/css" href="/Content/themes/base/jquery.ui.autocomplete.css" rel="stylesheet"  />
+        <link type="text/css" href="/Content/themes/base/jquery.ui.slider.css" rel="stylesheet"  />
+        <link type="text/css" href="/Content/themes/base/jquery.ui.datepicker.css" rel="stylesheet"  />
+        <link type="text/css" href="/Content/themes/base/jquery.ui.theme.css" rel="stylesheet"  />
+        <link type="text/css" href="/Content/css/plugins/tipsy.css" rel="stylesheet"  />
+        <link type="text/css" href="/Content/css/form-builder/forms-global.css" rel="stylesheet"  />        
+        <link type="text/css" href="/Content/css/plugins/jquery.jcrop.css" rel="stylesheet"  />
+        <link type="text/css" href="/Content/css/form-builder/forms-sprites.css" rel="stylesheet"  />    
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">      
+        @RenderSection("headerScripts", false)
+    </head>
+    <body class="@Html.GetContextCssClass()">     
+
+        <div style="background-color:black; height: 70px; display:flex;align-items:center;">
+            <div style="background-color:black; display:flex; align-items:center;">
+                <img class="logo" src="~/Content/images/logo.png" height="40" style="margin-left:40px">
+            </div>
+            <div style="background-color:black; margin-left:80%;display:flex;align-items:center;">
+                <div title="Help" style="display:flex;align-items:center;">
+                    <a href="https://www.docstack.com" target="_blank">
+                        <i class="material-icons" style="font-size:32px;color:white">contact_support</i>
+
+                    </a>
+                </div>&nbsp;&nbsp;&nbsp;&nbsp;
+                <div title="Contact Support" style="display:flex;align-items:center;">
+                    <a href="https://www.docstack.com/contact" target="_blank">
+                        <i class="material-icons" style="font-size:32px;color:white">email</i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    <div id="page-body">
+        @RenderBody()
+    </div>
+    @RenderSection("footerScripts", false)
+    <script type="text/javascript">
+            $(document).ready(function () {
+                global.init();
+                @RenderSection("initializers", false)
+            });
+
+
+    </script>
+</body>
+</html>

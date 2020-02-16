@@ -1,0 +1,68 @@
+﻿@model FormBuilder.ViewModels.FormViewModel
+@{    
+    
+    ViewBag.Title = Model.Title;
+    Model.Embed = true;
+    
+    if(Model.Embed){
+        Layout = "~/Views/Shared/_EmbedLayout.cshtml";
+    }
+}
+@section headerScripts{    
+  <script type="text/javascript" src="/scripts/form-builder/fbuilder.utils.js"></script>
+  <script type="text/javascript" src="/scripts/form-builder/fbuilder.global.js"></script>
+  <script type="text/javascript" src="/scripts/form-builder/fbuilder.layout.js"></script>  
+
+  <link type="text/css" href="/Content/css/form-builder/forms-common.css" rel="stylesheet"  />
+  <link type="text/css" href="/Content/css/form-builder/forms-interface.css" rel="stylesheet"  />
+  
+  @if(!Model.Theme.IsNullOrEmpty())
+  {
+    <link type="text/css" href="/Content/css/form-builder/themes/@Model.Theme/styles.css" rel="stylesheet"  />    
+  }    
+  
+}
+
+<div class="form-page-container prepend-top span-26">    
+    <div class="center-column span-14">
+       @if (!Model.Embed)
+       {
+        <div class="inner-container">   
+        @Html.RouteLink("Home", "form-home", null, new { @class = "image-icon-link home-icon-link" })     
+        </div>
+       }
+       
+        @using (Html.BeginForm("Register", "Forms", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {            
+        @Html.WriteMessages()
+        <ul id="drop-form" class="vertical-list edit-form drop-form-list entry-form-list">
+            @foreach (var field in Model.Fields)
+            {
+                <li id="drop-item-@field.DomId" class="drop-item ui-droppable" data-dom-id="@field.DomId" data-control-type="@field.FieldType.ToString().ToLower()">
+                    @Html.Partial("_form-field-{0}-partial".FormatWith(field.FieldType.ToString().ToLower()), field)
+                </li>
+            }
+        </ul>
+            
+            if (Model.Fields != null && Model.Fields.Any())
+            {
+            <ul id="submit-button-list" class="vertical-list entry-form-list">
+                <li>
+                    <label class="label">
+                        &nbsp;</label>
+                    <div class="input">
+                        <input type="submit" class="blue" value="Submit" />
+                    </div>
+                </li>
+            </ul>
+            }
+            @Html.HiddenFor(m => m.Id)
+            @Html.Hidden("SubmitFields[-1].Hidden", "")
+            @Html.HiddenFor(m => m.Embed)
+        }
+    </div>
+   
+</div>
+@section footerScripts{
+    
+}
